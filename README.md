@@ -2,6 +2,7 @@
 
 TSTasks is a lightweight task scheduling and execution system built with Flask and Python. 
 It enables scheduling and automated execution of database, email, and file-transfer tasks across multiple client environments, with support for tracking, reporting, and logging.
+
 This public-facing repository contains a cleaned version of the application code intended for demonstration and resume purposes. The full production system is hosted and versioned in TFS.
 ---
 
