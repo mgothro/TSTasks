@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block scripts %}
+{% endblock %}
+
+{% block title %}Task Details{% endblock %}
+
+{% block content %}
+<form action="/task_edit/{{ task.id }}" method="post">
+	<div class="container mt-3">
+		{% if session.auth_token %}
+		{% with messages = get_flashed_messages() %}
+		{% if messages %}
+		<div class="alert alert-info" role="alert">
+			{% for message in messages %}
+			{{ message }}<br>
+			{% endfor %}
+		</div>
+		{% endif %}
+		{% endwith %}
+		<div class="d-flex justify-content-between align-items-center">
+			<h2>Task Details</h2>
+			<div class="btn-group" role="group" aria-label="Task Actions">
+				<button type="button" onclick="window.location.href='{{ url_for('task_details', task_id=task.id) }}'" class="btn btn-primary">
+					<i class="bi bi-arrow-left"></i> Return
+				</button>
+			</div>
+		</div>
+
+
+		<div class="container mt-3">
+			<div class="card">
+
+				<div class="card-header d-flex justify-content-between align-items-center">
+					<h5 class="card-title mb-0">Task Details (ID: {{ task.id }})</h5>
+					<div class="btn-group" role="group" aria-label="Task Actions">
+						<button type="submit" class="btn btn-secondary" name="save_task">
+							<i class="bi bi-save"></i> Save
+						</button>
+					</div>
+				</div>
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item">
+						<label for="name" class="form-label">Name:</label>
+						<input id="name" type="text" name="name" value="{{ task.name }}" class="form-control" placeholder="Enter task name" />
+					</li>
+					<li class="list-group-item">
+						<label for="description" class="form-label">Description:</label>
+						<input id="description" type="text" name="description" value="{{ task.description }}" class="form-control" placeholder="Enter Description" />
+					</li>
+					<li class="list-group-item">
+						<label for="task_class" class="form-label">Task Class:</label>
+						<input id="task_class" type="text" name="task_class" value="{{ task.task_class }}" class="form-control" placeholder="Enter Task Class" />
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		{% for schedule in schedules %}
+		<div class="container mt-3">
+			<div class="card">
+				<form action="{{ url_for('task_edit', task_id=task.id) }}" method="post">
+					<div class="card-header d-flex justify-content-between align-items-center">
+						<h5 class="card-title mb-0">Schedule Details (ID: {{ schedule.id }})</h5>
+						<input type="hidden" name="schedule_id" value="{{ schedule.id }}">
+						<div class="btn-group" role="group" aria-label="Task Actions">
+							<button type="submit" class="btn btn-secondary" name="save_schedule">
+								<i class="bi bi-save"></i> Save
+							</button>
+						</div>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<label for="frequency" class="form-label">Frequency:</label>
+							<input id="frequency" type="text" name="frequency" value="{{ schedule.frequency }}" class="form-control" placeholder="Enter schedule frequency" />
+						</li>
+						<li class="list-group-item">
+							<label for="interval" class="form-label">Interval:</label>
+							<input id="interval" type="text" name="interval" value="{{ schedule.interval }}" class="form-control" placeholder="Enter schedule interval" />
+						</li>
+						<li class="list-group-item">
+							<label for="next_run" class="form-label">Next Run:</label>
+							<input id="next_run" type="text" name="next_run" value="{{ schedule.next_run }}" class="form-control" placeholder="Enter next date that schedule should run" />
+						</li>
+						<li class="list-group-item">
+							<label for="end_date" class="form-label">End Date:</label>
+							<input id="end_date" type="text" name="end_date" value="{{ schedule.end_date or '' }}" class="form-control" placeholder="Enter schedule end date" />
+						</li>
+						<li class="list-group-item">
+							<label for="email_subject" class="form-label">Email Subject:</label>
+							<input id="email_subject" type="text" name="email_subject" value="{{ schedule.email_subject }}" class="form-control" placeholder="Enter email subject" />
+						</li>
+						<li class="list-group-item">
+							<label for="recipients" class="form-label">Email Recipients: (comma separated)</label>
+							<input id="recipients" type="text" name="recipients" value="{{ schedule.email_recipients }}" class="form-control" placeholder="Enter email recipients (comma-separated)" />
+						</li>
+					</ul>
+				</form>
+			</div>
+		</div>
+		{% endfor %}
+
+
+		{% else %}
+		<!-- Add content for users who are not authenticated -->
+		Please log in to view tasks.
+		{% endif %}
+	</div>
+</form>
+{% endblock %}
+

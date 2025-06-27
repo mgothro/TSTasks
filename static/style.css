@@ -1,0 +1,41 @@
+.btn {
+	background-color: #2196F3; /* Blue background color */
+	color: white; /* White text color */
+	padding: 5px 20px; /* Reduced vertical padding for a less tall button */
+	border: none; /* No border */
+	border-radius: 5px; /* Rounded corners */
+	text-decoration: none; /* Remove underlines for links */
+	cursor: pointer; /* Change cursor on hover */
+}
+
+	.btn-logout:hover {
+		background-color: #1976D2; /* Darker blue on hover */
+	}
+
+	.btn-logout i {
+		margin-right: 5px; /* Space between icon and text */
+	}
+
+tr:hover {
+	background-color: #ddd;
+}
+.card {
+	margin-bottom: 20px
+}
+.bi-x-circle {
+	color: red;
+}
+
+div#loading {
+	width: 50px;
+	height: 50px;
+	display: none;
+	background-image: url(loading.gif);
+	background-size: cover;
+	cursor: wait;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 9999; /* bring the div to the forefront */
+}

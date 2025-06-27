@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+
+	{% block scripts %}{% endblock %}
+	<title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+	<header>
+		<nav class="navbar navbar-expand-lg bg-light">
+			<div class="container">
+				<div>Hi, {{ session.email }}!</div>
+				<a class="btn btn-logout" href="{{ url_for('logout') }}">Logout</a>
+			</div>
+		</nav>
+	</header>
+
+	<main>
+		<div id="loading"></div>
+		<!-- Content from child templates will go here -->
+		{% block content %}{% endblock %}
+	</main>
+
+	<footer>
+		<!-- Common footer content here -->
+	</footer>
+
+	<script type="text/javascript">
+		function loading() {
+			$.blockUI({ message: '', overlayCSS: { opacity: .75, backgroundColor: "white"} });
+			$("#loading").show();
+		}
+	</script>
+</body>
+</html>
